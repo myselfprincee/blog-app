@@ -1,2 +1,3 @@
 terminals: ["bun install && bun run dev"]
-run-button: bun run dev
+run-button: bun run dev -p 1337 
+tabs : [contentlayer.config.js]
