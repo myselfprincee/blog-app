@@ -12,7 +12,7 @@ export const Post = defineDocumentType(() => ({
     image: { type: 'string', required: true },
   },
   computedFields: {
-    url: { type: 'string', resolve: (post) => `/${post._raw.flattenedPath}` },
+    url: { type: 'string', resolve: (post) => `/blogs/${post._raw.flattenedPath}` },
   },
 }));
 
