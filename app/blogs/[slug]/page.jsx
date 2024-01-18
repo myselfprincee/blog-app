@@ -22,7 +22,7 @@ const PostLayout = ({ params }) => {
 	const Content = getMDXComponent(post.body.code)
 
 	return (
-		<article className="py-8 mx-auto max-w-xl" id="article">
+		<article className="py-8 mx-auto max-w-xl prose prose-img:rounded-xl prose-a:text-blue-600" id="article">
 			<div className="mb-8 text-center">
 				<time
 					dateTime={post.date}

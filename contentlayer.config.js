@@ -1,26 +1,35 @@
-import { makeSource, defineDocumentType } from "@contentlayer/source-files";
+import { defineDocumentType, makeSource } from 'contentlayer/source-files'
+import rehypePrettyCode from "rehype-pretty-code";
 
-export const Post = defineDocumentType(() => ({
-  name: 'Post',
-  filePathPattern: `**/*.mdx`,
-  contentType: 'mdx',
-  fields: {
-    title: { type: 'string', required: true },
-    description: { type: 'string', required: true },
-    subtitle: { type: 'string', required: true },
-    date: { type: 'date', required: true },
-    image: { type: 'string', required: true },
-  },
-  computedFields: {
-    url: { type: 'string', resolve: (post) => `/blogs/${post._raw.flattenedPath}` },
-  },
-}));
+const Post = defineDocumentType(() => ({
+	name: 'Post',
+	filePathPattern: `**/*.mdx`,
+	contentType: 'mdx',
+	fields: {},
+	computedFields: {
+		url: {
+			type: 'string',
+			resolve: (doc) => `/blogs/${doc._raw.flattenedPath}`
+		}
+	}
+}))
 
 export default makeSource({
-  contentDirPath: 'posts',
-  documentTypes: [Post]
+	contentDirPath: 'posts',
+	documentTypes: [Post],
+	mdx : { rehypePlugins : 
+		[rehypePrettyCode, {
+			  theme: 'one-dark-pro',
+			  onVisitLine(node) {
+				if (node.children.length === 0) {
+				  node.children = [{ type: 'text', value: ' ' }];
+				}
+			  },
+			  onVisitHighlightedLine(node) {
+				node.properties.className.push('line--highlighted');
+			  },
+			  onVisitHighlightedWord(node) {
+				node.properties.className = ['word--highlighted'];
+			  },
+			}]}
 })
-
-
-
-
