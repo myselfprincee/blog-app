@@ -2,9 +2,13 @@ import { defineDocumentType, makeSource } from 'contentlayer/source-files'
 
 const Post = defineDocumentType(() => ({
   name: 'Post',
-  filePathPattern: `**/*.csv`,
-  contentType: 'pdf',
+  filePathPattern: `**/*.mdx`,
+  contentType: 'mdx',
   fields: {
+    title: { type: 'string', required: true },
+    date: { type: 'date', required: true },
+    description: { type: 'string', required: true },
+    Image:{type: 'Image'}
   },
   computedFields: {
     url: {
@@ -15,6 +19,6 @@ const Post = defineDocumentType(() => ({
 }))
 
 export default makeSource({
-  contentDirPath: '',
+  contentDirPath: 'posts',
   documentTypes: [Post],
 })
